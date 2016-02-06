@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5EA75DA0-548D-46B7-9ED9-FEA794EF66A5}</ProjectGuid>
+    <RootNamespace>LoD</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Denpendencies\Tweakbar\include;$(SolutionDir)\Denpendencies\SOIL\include;$(SolutionDir)\Denpendencies\SDL2-2.0.3\include;$(SolutionDir)\Denpendencies\glm;$(SolutionDir)\Denpendencies\SDL2_image\include;$(SolutionDir)\Denpendencies\glew\glew-1.10.0\include;$(SolutionDir)\Denpendencies\FreeImage\include;$(SolutionDir)\Denpendencies\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Denpendencies\Tweakbar\lib;$(SolutionDir)\Denpendencies\SDL2-2.0.3\lib\x86;$(SolutionDir)\Denpendencies\SOIL\lib;$(SolutionDir)\Denpendencies\FreeImage\lib;$(SolutionDir)\Denpendencies\SDL2_image\lib\x86;$(SolutionDir)\Denpendencies\glew\glew-1.10.0\lib;$(SolutionDir)\Denpendencies\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>FreeImage.lib;SDL2.lib;SDL2main.lib;glew32.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Denpendencies\Tweakbar\include;$(SolutionDir)\Denpendencies\SOIL\include;$(SolutionDir)\Denpendencies\SDL2-2.0.3\include;$(SolutionDir)\Denpendencies\glm;$(SolutionDir)\Denpendencies\SDL2_image\include;$(SolutionDir)\Denpendencies\glew\glew-1.10.0\include;$(SolutionDir)\Denpendencies\FreeImage\include;$(SolutionDir)\Denpendencies\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Denpendencies\Tweakbar\lib;$(SolutionDir)\Denpendencies\SDL2-2.0.3\lib\x86;$(SolutionDir)\Denpendencies\SOIL\lib;$(SolutionDir)\Denpendencies\FreeImage\lib;$(SolutionDir)\Denpendencies\SDL2_image\lib\x86;$(SolutionDir)\Denpendencies\glew\glew-1.10.0\lib;$(SolutionDir)\Denpendencies\freeglut\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Basic_Shader.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="obj_loader.cpp" />
+    <ClCompile Include="Phong_Shader.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Skybox.cpp" />
+    <ClCompile Include="Skybox_Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Basic_Shader.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Display.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="obj_loader.h" />
+    <ClInclude Include="Phong_Shader.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Skybox.h" />
+    <ClInclude Include="Skybox_Shader.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Transform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\skybox.frag" />
+    <None Include="shaders\skybox.vert" />
+    <None Include="shaders\space.frag" />
+    <None Include="shaders\space.vert" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

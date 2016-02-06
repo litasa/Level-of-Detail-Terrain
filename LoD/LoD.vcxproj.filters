@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{d68e2360-e1fb-405c-a976-d5336380be39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image Handeling">
+      <UniqueIdentifier>{337690c4-0e87-49eb-9d95-4120d185baa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Different Shaders">
+      <UniqueIdentifier>{05ff7eac-7862-48fc-9402-61bc6d1deddd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Different Shaders\Basic">
+      <UniqueIdentifier>{09ff26a3-63e4-45bc-97db-df0236e3502d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Display.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="obj_loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Phong_Shader.cpp">
+      <Filter>Different Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox_Shader.cpp">
+      <Filter>Different Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic_Shader.cpp">
+      <Filter>Different Shaders\Basic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Display.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Image Handeling</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Phong_Shader.h">
+      <Filter>Different Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox_Shader.h">
+      <Filter>Different Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Basic_Shader.h">
+      <Filter>Different Shaders\Basic</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\skybox.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\skybox.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\space.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\space.vert">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
