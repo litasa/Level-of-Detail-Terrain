@@ -1,3 +1,3 @@
-# space
+# Level of Detail on Terrain
 
-My starting project whenever I start something new. Got a few different features, like skybox and texture loading.
+This is a project for the course TSBK07 at Linköping University. 
