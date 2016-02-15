@@ -7,6 +7,22 @@
 
 Texture::Texture(const std::string& fileName)
 {
+	Load(fileName);
+}
+
+Texture::Texture()
+{
+	//no texture binded
+	m_texture = 0;
+}
+
+Texture::~Texture()
+{
+	glDeleteTextures(1, &m_texture);
+}
+
+void Texture::Load(const std::string& fileName)
+{
 	int width, height, numComponent;
 
 	unsigned char* imageData = stbi_load((fileName).c_str(), &width, &height, &numComponent, 4);
@@ -28,17 +44,6 @@ Texture::Texture(const std::string& fileName)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
 
 	stbi_image_free(imageData);
-}
-
-Texture::Texture()
-{
-	//no texture binded
-	m_texture = 0;
-}
-
-Texture::~Texture()
-{
-	glDeleteTextures(1, &m_texture);
 }
 
 

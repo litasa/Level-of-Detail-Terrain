@@ -11,6 +11,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Skybox.h"
+#include "Terrain.h"
 #include <iostream>
 
 /*https://www.youtube.com/watch?v=RqRxhY6iLto */
@@ -24,6 +25,8 @@ int main(int argc, char ** argv[])
 	Phong_Shader phong("./shaders/phong");
 	Texture texture("./textures/dirt.tga");
 	Camera camera(glm::vec3(0, 0, 0), 70.0f, display.GetAspectRation(), 0.01f, 1000.0f);
+
+	Terrain terr("./textures/terrain.jpg");
 	
 	Skybox sky;
 	sky.SkyboxInit("./textures/skybox/", "back.jpg", "front.jpg", "left.jpg", "right.jpg", "top.jpg", "bottom.jpg");
@@ -60,15 +63,17 @@ int main(int argc, char ** argv[])
 
 		keyboard.HandleEvent(currentKeyStates, camera);
 		
-		sky.Draw(transform, camera);
+		//sky.Draw(transform, camera);
 
-		phong.Use();
-		phong.UpdateValues(transform, camera);
+		//phong.Use();
+		//phong.UpdateValues(transform, camera);
 		
-		texture.Use();
-		monkey.Draw();
+		//texture.Use();
+		//monkey.Draw();
 		//box.Draw();
 		
+		terr.Draw(transform, camera);
+
 		display.Update();
 
 		counter += 0.001f;

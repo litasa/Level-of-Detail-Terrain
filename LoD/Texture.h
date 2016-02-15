@@ -13,6 +13,7 @@ public:
 	Texture(const std::string& fileName);
 
 	void Use(unsigned int unit = 0);
+	void Load(const std::string& fileName);
 
 	GLuint& GetTexture() { return m_texture; }
 	~Texture();
