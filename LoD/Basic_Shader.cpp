@@ -1,6 +1,9 @@
 #include "Basic_Shader.h"
 
+Basic_Shader::Basic_Shader()
+{
 
+}
 
 Basic_Shader::Basic_Shader(const std::string& filePath)
 {

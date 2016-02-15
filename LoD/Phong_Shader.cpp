@@ -3,15 +3,9 @@
 #include "glm\gtc\type_ptr.hpp"
 
 
-Phong_Shader::Phong_Shader(const std::string& filePath)
+Phong_Shader::Phong_Shader(const std::string& filePath) : Basic_Shader(filePath)
 {
-	LoadFromFile(GL_VERTEX_SHADER, filePath + ".vert");
-	LoadFromFile(GL_FRAGMENT_SHADER, filePath + ".frag");
-	CreateAndLinkProgram();
 	Use();
-	AddUniform("model");
-	AddUniform("view");
-	AddUniform("projection");
 	AddUniform("u_cameraPosition");
 
 	AddUniform("u_lightPosition");

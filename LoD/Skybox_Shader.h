@@ -8,6 +8,6 @@ public:
 	Skybox_Shader(const std::string& filePath);
 	~Skybox_Shader();
 
-	//void UpdateValues(const Transform& transform, const Camera& camera); Should use newBasic_Shaders
+	//void UpdateValues(const Transform& transform, const Camera& camera); Should use Basic_Shaders
 };
 

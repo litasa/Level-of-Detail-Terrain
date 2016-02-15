@@ -29,7 +29,7 @@ public:
 private:
 	CubemapTexture* m_cubemap;
 	Mesh* m_box;
-	Shader* m_shader;
+	Skybox_Shader* m_shader;
 };
 #endif //SKYBOX_H
 
