@@ -5,23 +5,28 @@
 #include <string>
 #include <GL\glew.h>
 #include <vector>
+#include <map>
 
 class Texture
 {
 public:
 	Texture();
-	Texture(const std::string& fileName);
+	Texture(const std::string& fileName, unsigned int unit = 0);
 
 	void Use(unsigned int unit = 0);
-	void Load(const std::string& fileName);
+	void AddTexture(const std::string& fileName, unsigned int unit);
 
-	GLuint& GetTexture() { return m_texture; }
+	GLuint& GetTexture(unsigned int unit = 0) { return m_texture[unit]; }
 	~Texture();
 
 protected:
 
+	void Load(const std::string& fileName, unsigned int unit = 0);
+
 private:
-	GLuint m_texture;
+	std::vector<GLuint> m_texture;
+	std::map<unsigned int, std::string> m_unitBound; //texture unit to filePath
+													// size contains number of textures
 };
 
 class CubemapTexture

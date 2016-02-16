@@ -2,10 +2,10 @@
 
 
 
-Terrain::Terrain(const std::string& filePath)
+Terrain::Terrain(const std::string& heightMap, const std::string& terrainTexture)
 {
 	loadShaders();
-	generateVAO(filePath);
+	generateVAO(heightMap, terrainTexture);
 }
 
 
@@ -29,7 +29,7 @@ void Terrain::loadShaders()
 	m_shader.AddUniform("enable_fog");
 }
 
-void Terrain::generateVAO(const std::string& filePath)
+void Terrain::generateVAO(const std::string& heightMap, const std::string& terrainTexture)
 {
 	glGenVertexArrays(1, &m_vao);
 	glBindVertexArray(m_vao);
@@ -37,7 +37,8 @@ void Terrain::generateVAO(const std::string& filePath)
 	glPatchParameteri(GL_PATCH_VERTICES, 4);
 
 	glEnable(GL_CULL_FACE);
-	m_heightmap.Load(filePath);
+	m_heightmap.AddTexture(heightMap, 0);
+	m_heightmap.AddTexture(terrainTexture, 1);
 }
 
 void Terrain::Draw(const Transform & transform, const Camera & camera)
@@ -55,7 +56,7 @@ void Terrain::Draw(const Transform & transform, const Camera & camera)
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	glDrawArraysInstanced(GL_PATCHES, 0, 4, 64 * 64);
 }

@@ -5,23 +5,27 @@
 #include <iostream>
 
 
-Texture::Texture(const std::string& fileName)
+Texture::Texture(const std::string& fileName, unsigned int unit)
 {
-	Load(fileName);
+	m_texture.resize(32);
+	Load(fileName, unit);
 }
 
 Texture::Texture()
 {
 	//no texture binded
-	m_texture = 0;
+	m_texture.clear();
 }
 
 Texture::~Texture()
 {
-	glDeleteTextures(1, &m_texture);
+	for (auto it = m_unitBound.cbegin(); it != m_unitBound.cend(); ++it)
+	{
+		glDeleteTextures(1, &(*it).first);
+	}
 }
 
-void Texture::Load(const std::string& fileName)
+void Texture::Load(const std::string& fileName, unsigned int unit)
 {
 	int width, height, numComponent;
 
@@ -32,8 +36,13 @@ void Texture::Load(const std::string& fileName)
 		std::cerr << "Texture loading failed for texture " << fileName << std::endl;
 	}
 
-	glGenTextures(1, &m_texture);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
+	GLuint texture;
+	m_texture.push_back(texture);
+	m_unitBound[unit] = fileName;
+	glActiveTexture(GL_TEXTURE0 + unit);
+
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -50,9 +59,14 @@ void Texture::Load(const std::string& fileName)
 void Texture::Use(unsigned int unit)
 {
 	//crash program if too many units or texture not initialized
-	assert(unit >= 0 && unit <= 31 && m_texture);
+	assert(unit >= 0 && unit <= 31 && m_texture.size() > 0);
 	glActiveTexture(GL_TEXTURE0 + unit);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
+	glBindTexture(GL_TEXTURE_2D, m_texture[unit]);
+}
+
+void Texture::AddTexture(const std::string & fileName, unsigned int unit)
+{
+	Load(fileName, unit);
 }
 
 CubemapTexture::CubemapTexture(

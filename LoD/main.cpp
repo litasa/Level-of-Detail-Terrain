@@ -26,7 +26,7 @@ int main(int argc, char ** argv[])
 	Texture texture("./textures/dirt.tga");
 	Camera camera(glm::vec3(0, 0, 0), 70.0f, display.GetAspectRation(), 0.01f, 1000.0f);
 
-	Terrain terr("./textures/terrain.jpg");
+	Terrain terr("./textures/terrain.jpg", "./textures/terrain.jpg");
 	
 	Skybox sky;
 	sky.SkyboxInit("./textures/skybox/", "back.jpg", "front.jpg", "left.jpg", "right.jpg", "top.jpg", "bottom.jpg");

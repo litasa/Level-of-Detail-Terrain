@@ -9,7 +9,7 @@
 class Terrain
 {
 public:
-	Terrain(const std::string& filePath);
+	Terrain(const std::string& heightMap, const std::string& terrainTexture);
 	~Terrain();
 
 	void Draw(const Transform & transform, const Camera & camera);
@@ -17,7 +17,7 @@ public:
 private:
 	Texture m_heightmap;
 	void loadShaders();
-	void generateVAO(const std::string& filePath);
+	void generateVAO(const std::string& heightMap, const std::string& terrainTexture);
 
 	GLuint m_vao;
 
