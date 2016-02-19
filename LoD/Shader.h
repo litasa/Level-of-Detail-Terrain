@@ -26,6 +26,8 @@ public:
 	static GLuint LoadFromFileAndReturn(GLenum type, const std::string& fileName);
 	static void PrintError(GLuint programOrShader);
 	static GLuint LoadFromStringAndReturn(GLenum type, const std::string& source);
+
+	void LinkProgram();
 protected:
 
 	GLuint m_program;

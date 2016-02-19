@@ -16,7 +16,13 @@ public:
 	void Use(unsigned int unit = 0);
 	void AddTexture(const std::string& fileName, unsigned int unit);
 
+	static unsigned char* GetTextureData(Texture& texture);
+
 	GLuint& GetTexture(unsigned int unit = 0) { return m_texture[unit]; }
+
+	unsigned int Width() { return m_width; }
+	unsigned int Height() { return m_height; }
+	unsigned int NumComponents() { return m_numComponents; }
 	~Texture();
 
 protected:
@@ -27,6 +33,10 @@ private:
 	std::vector<GLuint> m_texture;
 	std::map<unsigned int, std::string> m_unitBound; //texture unit to filePath
 													// size contains number of textures
+	unsigned int m_width;
+	unsigned int m_height;
+	unsigned int m_numComponents;
+	unsigned int m_memSize;
 };
 
 class CubemapTexture

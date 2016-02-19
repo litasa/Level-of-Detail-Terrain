@@ -25,6 +25,11 @@ void Keyboard::HandleEvent(const Uint8* keyState, Camera& camera)
 	{
 		std::cout << "x: " << camera.GetUp().x << "y: " << camera.GetUp().y << "z: " << camera.GetUp().z << std::endl;
 	}
+	if (keyState[SDL_SCANCODE_P])
+	{
+		glm::vec3 pos = camera.GetPosition();
+		std::cout << "Camera position: " << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
+	}
 	if (keyState[SDL_SCANCODE_Z])
 	{
 		Z_KeyUsed(camera);

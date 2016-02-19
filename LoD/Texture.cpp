@@ -36,6 +36,11 @@ void Texture::Load(const std::string& fileName, unsigned int unit)
 		std::cerr << "Texture loading failed for texture " << fileName << std::endl;
 	}
 
+	m_width = width;
+	m_height = height;
+	m_numComponents = numComponent;
+	m_memSize = width*height*m_numComponents;
+
 	GLuint texture;
 	m_texture.push_back(texture);
 	m_unitBound[unit] = fileName;
@@ -67,6 +72,15 @@ void Texture::Use(unsigned int unit)
 void Texture::AddTexture(const std::string & fileName, unsigned int unit)
 {
 	Load(fileName, unit);
+}
+
+unsigned char* Texture::GetTextureData(Texture & texture)
+{
+	std::string fileName = texture.m_unitBound[0];
+	int width = texture.Width();
+	int height = texture.Height();
+	int numComponent = texture.m_numComponents;
+	return stbi_load((fileName).c_str(), &width, &height, &numComponent, 4);
 }
 
 CubemapTexture::CubemapTexture(
@@ -104,7 +118,7 @@ bool CubemapTexture::Load()
 	//ignore first position, the directory
 	for (unsigned int i = 0; i < 6; i++)
 	{
-		std::cerr << "Trying to load" << m_fileNames[i] << std::endl;
+		std::cerr << "Trying to load " << m_fileNames[i] << " : ";
 		unsigned char* imageData = stbi_load((m_fileNames[i]).c_str(), &width, &height, &numComponent, 4);
 		if (imageData == NULL)
 		{

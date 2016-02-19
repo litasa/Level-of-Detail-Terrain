@@ -141,6 +141,12 @@ void Shader::DeleteShaderProgram()
 	glDeleteProgram(m_program);
 }
 
+void Shader::LinkProgram()
+{
+	glLinkProgram(m_program);
+	PrintError(m_program);
+}
+
 void Shader::LoadFromFile(GLenum whichShader, const std::string & fileName)
 {
 	std::ifstream fp;
