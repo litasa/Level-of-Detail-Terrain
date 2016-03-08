@@ -20,6 +20,8 @@ void main(void)
     vec2 offs = vec2(x, y);
  
     vs_out.tc = (vertices[gl_VertexID].xz + offs + vec2(0.5)) / numPatches;
-    gl_Position = vertices[gl_VertexID] + vec4(float(x - 32), 0.0,
-                                               float(y - 32), 0.0);
+    gl_Position = vertices[gl_VertexID] + vec4( float(x - 32),
+												0.0,
+                                                float(y - 32),
+												0.0);
 }

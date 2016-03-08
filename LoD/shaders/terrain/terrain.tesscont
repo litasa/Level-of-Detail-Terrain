@@ -16,7 +16,7 @@ uniform mat4 mvp_matrix;
 
 void main(void)
 {
-    if (gl_InvocationID == 0) //calls this 4 times. Only the first vertice needs to do this calculation
+    if (gl_InvocationID == 0) //calls this 4 times. Only want to do these calculations once
     {
 		//convert to screen coordinates
         vec4 p0 = mvp_matrix * gl_in[0].gl_Position;
@@ -41,7 +41,7 @@ void main(void)
          else
          {
 			//otherwise measure the length (between each corner) the box takes on the screen and set the tesselationlevel to that
-            float l0 = length(p2.xy - p0.xy) * 16 + 1.0;
+            float l0 = length(p2.xy - p0.xy) * 16 + 1.0; //add one to make sure we get atleast one tesselation
             float l1 = length(p3.xy - p2.xy) * 16 + 1.0;
             float l2 = length(p3.xy - p1.xy) * 16 + 1.0;
             float l3 = length(p1.xy - p0.xy) * 16 + 1.0;

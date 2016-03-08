@@ -29,7 +29,6 @@ void Terrain::loadShaders()
 	m_shader.AddUniform("mvp_matrix");
 	m_shader.AddUniform("proj_matrix");
 	m_shader.AddUniform("dmap_depth");
-	m_shader.AddUniform("enable_fog");
 }
 
 void Terrain::generateVAO(const std::string& heightMap, const std::string& terrainTexture)
@@ -54,8 +53,7 @@ void Terrain::Draw(const Transform & transform, const Camera & camera)
 	glUniformMatrix4fv(m_shader("proj_matrix"), 1, GL_FALSE, &camera.GetProjectionMatrix()[0][0]);
 	glUniformMatrix4fv(m_shader("mvp_matrix"), 1, GL_FALSE, &mvp_matrix[0][0]);
 
-	glUniform1f(glGetUniformLocation(m_shader.getProgram(), "dmap_depth"), 6.0f);
-	glUniform1i(glGetUniformLocation(m_shader.getProgram(), "enable_fog"), 0);
+	glUniform1f(glGetUniformLocation(m_shader.getProgram(), "dmap_depth"), 3.0f);
 
 	//glEnable(GL_DEPTH_TEST);
 	//glDepthFunc(GL_LEQUAL);

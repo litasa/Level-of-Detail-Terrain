@@ -42,6 +42,7 @@ int main(int argc, char ** argv[])
 
 	std::cout << "init complete" << std::endl;
 
+	bool wireframe = false;
 
 	while (!display.IsClosed())
 	{
@@ -75,7 +76,23 @@ int main(int argc, char ** argv[])
 		//box.Draw();
 		//glm::vec3 temp = transform.GetScale();
 		//transform.SetScale(glm::vec3(50));
+		if (currentKeyStates[SDL_SCANCODE_B])
+		{
+			wireframe = !wireframe;
+		}
+		if (wireframe)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
 		terr.Draw(transform, camera);
+		if (wireframe)
+		{
+			
+		}
 		//transform.SetScale(temp);
 		display.Update();
 
