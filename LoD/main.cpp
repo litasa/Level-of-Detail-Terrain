@@ -20,7 +20,7 @@
 int main(int argc, char ** argv[])
 {
 
-	Display display(800, 600, "TSBK07 Space");
+	Display display(800, 600, "TSBK07 Level of Detail on Terrain");
 	Basic_Shader base_shader("./shaders/space");
 	Phong_Shader phong("./shaders/phong");
 	Texture texture("./textures/dirt.tga");
@@ -43,6 +43,7 @@ int main(int argc, char ** argv[])
 	std::cout << "init complete" << std::endl;
 
 	bool wireframe = false;
+	bool lock = false;
 
 	while (!display.IsClosed())
 	{
@@ -79,6 +80,7 @@ int main(int argc, char ** argv[])
 		if (currentKeyStates[SDL_SCANCODE_B])
 		{
 			wireframe = !wireframe;
+			lock = !lock;
 		}
 		if (wireframe)
 		{
@@ -88,7 +90,8 @@ int main(int argc, char ** argv[])
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
-		terr.Draw(transform, camera);
+		//transform.SetPos(glm::vec3(0, -5, 0));
+		terr.Draw(transform, camera, lock);
 		if (wireframe)
 		{
 			

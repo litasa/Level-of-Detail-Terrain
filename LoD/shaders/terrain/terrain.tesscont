@@ -12,35 +12,35 @@ out TCS_OUT
     vec2 tc;
 } tcs_out[];
 
-uniform mat4 mvp_matrix;
+uniform mat4 LOD_mvp_matrix;
+
+// taken from http://www.lighthouse3d.com/tutorials/view-frustum-culling/clip-space-approach-extracting-the-planes/
+// assume normalized coordinates
+bool edgeInFrustrum(vec4 p, vec4 q)
+{
+	bool pInside = ((p.x >= -1.0 && p.x <= 1.0) && (p.z >= -1.0 && p.z <= 1.0));
+	bool qInside = ((q.x >= -1.0 && q.x <= 1.0) && (q.z >= -1.0 && q.z <= 1.0));
+	return (pInside || qInside);
+}
 
 void main(void)
 {
     if (gl_InvocationID == 0) //calls this 4 times. Only want to do these calculations once
     {
 		//convert to screen coordinates
-        vec4 p0 = mvp_matrix * gl_in[0].gl_Position;
-        vec4 p1 = mvp_matrix * gl_in[1].gl_Position;
-        vec4 p2 = mvp_matrix * gl_in[2].gl_Position;
-        vec4 p3 = mvp_matrix * gl_in[3].gl_Position;
+        vec4 p0 = LOD_mvp_matrix * gl_in[0].gl_Position;
+        vec4 p1 = LOD_mvp_matrix * gl_in[1].gl_Position;
+        vec4 p2 = LOD_mvp_matrix * gl_in[2].gl_Position;
+        vec4 p3 = LOD_mvp_matrix * gl_in[3].gl_Position;
         //normalize
 		p0 /= p0.w;
         p1 /= p1.w;
         p2 /= p2.w;
         p3 /= p3.w;
-        if (p0.z <= 0.0 || //if any of the points are outside the view. remove them by not tesselate
-            p1.z <= 0.0 ||
-            p2.z <= 0.0 ||
-            p3.z <= 0.0)
+        if (edgeInFrustrum(p0,p1) || edgeInFrustrum(p0,p2) || edgeInFrustrum(p1,p3) || edgeInFrustrum(p2,p3))
          {
-              gl_TessLevelOuter[0] = 0.0;
-              gl_TessLevelOuter[1] = 0.0;
-              gl_TessLevelOuter[2] = 0.0;
-              gl_TessLevelOuter[3] = 0.0;
-         }
-         else
-         {
-			//otherwise measure the length (between each corner) the box takes on the screen and set the tesselationlevel to that
+            //If any edge is in the frustrum take the length of that edge in view-coordinates and assign that as its tesselation lever
+			//multiply by 16 so we get a better tessilation (example 2 points colineaar to camera gives a small value, we wnat to enlarge it )
             float l0 = length(p2.xy - p0.xy) * 16 + 1.0; //add one to make sure we get atleast one tesselation
             float l1 = length(p3.xy - p2.xy) * 16 + 1.0;
             float l2 = length(p3.xy - p1.xy) * 16 + 1.0;
@@ -51,6 +51,18 @@ void main(void)
             gl_TessLevelOuter[3] = l3;
             gl_TessLevelInner[0] = min(l1, l3);
             gl_TessLevelInner[1] = min(l0, l2);
+			
+         }
+         else
+         {
+		 
+			
+			 gl_TessLevelOuter[0] = 0.0;
+              gl_TessLevelOuter[1] = 0.0;
+              gl_TessLevelOuter[2] = 0.0;
+              gl_TessLevelOuter[3] = 0.0;
+			  gl_TessLevelInner[0] = 0.0;
+			  gl_TessLevelInner[1] = 0.0;
         }
     }
     gl_out[gl_InvocationID].gl_Position = gl_in[gl_InvocationID].gl_Position;

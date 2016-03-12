@@ -12,7 +12,7 @@ public:
 	Terrain(const std::string& heightMap, const std::string& terrainTexture);
 	~Terrain();
 
-	void Draw(const Transform & transform, const Camera & camera);
+	void Draw(const Transform & transform, const Camera & camera, bool lock);
 
 	float GetHeightAt(glm::vec3& position);
 
@@ -26,11 +26,14 @@ private:
 	GLuint m_buffer; //trial buffer to extract data
 
 	Basic_Shader m_shader;
+	Basic_Shader m_meshDisplay;
 
 	unsigned int m_2Dwidth;
 	unsigned int m_2Dheight; //z component
 
 	std::vector<float> m_heightData;
+
+	glm::mat4 LOD_mvp_matrix;
 };
 
 #endif //TERRAIN_H

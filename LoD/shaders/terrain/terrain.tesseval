@@ -1,7 +1,7 @@
 #version 420 core
 
-layout (quads, fractional_odd_spacing) in;
-
+layout (quads, equal_spacing) in;
+//fractional_even_spacing
 uniform sampler2D tex_displacement;
 
 uniform mat4 mv_matrix;

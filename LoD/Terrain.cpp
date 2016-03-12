@@ -21,12 +21,17 @@ void Terrain::loadShaders()
 	m_shader.LoadFromFile(GL_FRAGMENT_SHADER, "./shaders/terrain/terrain.frag");
 	m_shader.LoadFromFile(GL_TESS_CONTROL_SHADER, "./shaders/terrain/terrain.tesscont");
 	m_shader.LoadFromFile(GL_TESS_EVALUATION_SHADER, "./shaders/terrain/terrain.tesseval");
-	//m_shader.LoadFromFile(GL_GEOMETRY_SHADER, "./shaders/terrain/normal.geom");
+
+	m_meshDisplay.LoadFromFile(GL_VERTEX_SHADER, "./shaders/terrain/terrain.vert");
+	m_meshDisplay.LoadFromFile(GL_FRAGMENT_SHADER, "./shaders/terrain/terrain.frag");
+	m_meshDisplay.LoadFromFile(GL_TESS_CONTROL_SHADER, "./shaders/terrain/terrain.tesscont");
+	m_meshDisplay.LoadFromFile(GL_TESS_EVALUATION_SHADER, "./shaders/terrain/terrain.tesseval");
+	//m_meshDisplay.LoadFromFile(GL_GEOMETRY_SHADER, "./shaders/terrain/mesh.geom");
 
 	m_shader.CreateAndLinkProgram();
 
 	m_shader.AddUniform("mv_matrix");
-	m_shader.AddUniform("mvp_matrix");
+	m_shader.AddUniform("LOD_mvp_matrix");
 	m_shader.AddUniform("proj_matrix");
 	m_shader.AddUniform("dmap_depth");
 }
@@ -43,15 +48,18 @@ void Terrain::generateVAO(const std::string& heightMap, const std::string& terra
 	m_heightmap.AddTexture(terrainTexture, 1);
 }
 
-void Terrain::Draw(const Transform & transform, const Camera & camera)
+void Terrain::Draw(const Transform & transform, const Camera & camera, bool lock)
 {
 	glBindVertexArray(m_vao);
 	m_shader.Use();
 	glm::mat4 mv_matrix = transform.GetMatrix()*camera.GetViewMatrix();
-	glm::mat4 mvp_matrix = camera.GetProjectionMatrix()*mv_matrix;
+	if (!lock)
+	{
+		LOD_mvp_matrix = camera.GetProjectionMatrix()*mv_matrix;
+	}
 	glUniformMatrix4fv(m_shader("mv_matrix"), 1, GL_FALSE, &mv_matrix[0][0]);
 	glUniformMatrix4fv(m_shader("proj_matrix"), 1, GL_FALSE, &camera.GetProjectionMatrix()[0][0]);
-	glUniformMatrix4fv(m_shader("mvp_matrix"), 1, GL_FALSE, &mvp_matrix[0][0]);
+	glUniformMatrix4fv(m_shader("LOD_mvp_matrix"), 1, GL_FALSE, &LOD_mvp_matrix[0][0]);
 
 	glUniform1f(glGetUniformLocation(m_shader.getProgram(), "dmap_depth"), 3.0f);
 
