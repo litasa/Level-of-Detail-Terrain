@@ -12,7 +12,7 @@ public:
 	Terrain(const std::string& heightMap, const std::string& terrainTexture);
 	~Terrain();
 
-	void Draw(const Transform & transform, const Camera & camera, bool lock);
+	void Draw(const Transform & transform, const Camera & camera, bool lock, bool wireframe);
 
 	float GetHeightAt(glm::vec3& position);
 

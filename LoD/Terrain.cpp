@@ -23,17 +23,23 @@ void Terrain::loadShaders()
 	m_shader.LoadFromFile(GL_TESS_EVALUATION_SHADER, "./shaders/terrain/terrain.tesseval");
 
 	m_meshDisplay.LoadFromFile(GL_VERTEX_SHADER, "./shaders/terrain/terrain.vert");
-	m_meshDisplay.LoadFromFile(GL_FRAGMENT_SHADER, "./shaders/terrain/terrain.frag");
+	m_meshDisplay.LoadFromFile(GL_FRAGMENT_SHADER, "./shaders/terrain/grid_mesh.frag");
 	m_meshDisplay.LoadFromFile(GL_TESS_CONTROL_SHADER, "./shaders/terrain/terrain.tesscont");
 	m_meshDisplay.LoadFromFile(GL_TESS_EVALUATION_SHADER, "./shaders/terrain/terrain.tesseval");
-	//m_meshDisplay.LoadFromFile(GL_GEOMETRY_SHADER, "./shaders/terrain/mesh.geom");
+	m_meshDisplay.LoadFromFile(GL_GEOMETRY_SHADER, "./shaders/terrain/grid_mesh.geom");
 
+	m_meshDisplay.CreateAndLinkProgram();
 	m_shader.CreateAndLinkProgram();
 
 	m_shader.AddUniform("mv_matrix");
 	m_shader.AddUniform("LOD_mvp_matrix");
 	m_shader.AddUniform("proj_matrix");
 	m_shader.AddUniform("dmap_depth");
+
+	m_meshDisplay.AddUniform("mv_matrix");
+	m_meshDisplay.AddUniform("LOD_mvp_matrix");
+	m_meshDisplay.AddUniform("proj_matrix");
+	m_meshDisplay.AddUniform("dmap_depth");
 }
 
 void Terrain::generateVAO(const std::string& heightMap, const std::string& terrainTexture)
@@ -48,7 +54,7 @@ void Terrain::generateVAO(const std::string& heightMap, const std::string& terra
 	m_heightmap.AddTexture(terrainTexture, 1);
 }
 
-void Terrain::Draw(const Transform & transform, const Camera & camera, bool lock)
+void Terrain::Draw(const Transform & transform, const Camera & camera, bool lock, bool wireframe)
 {
 	glBindVertexArray(m_vao);
 	m_shader.Use();
@@ -62,14 +68,26 @@ void Terrain::Draw(const Transform & transform, const Camera & camera, bool lock
 	glUniformMatrix4fv(m_shader("LOD_mvp_matrix"), 1, GL_FALSE, &LOD_mvp_matrix[0][0]);
 
 	glUniform1f(glGetUniformLocation(m_shader.getProgram(), "dmap_depth"), 3.0f);
-
-	//glEnable(GL_DEPTH_TEST);
-	//glDepthFunc(GL_LEQUAL);
-
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	//glDrawArraysInstanced(GL_PATCHES, 0, 4, 64 * 64);
 	glDrawArraysInstanced(GL_PATCHES, 0, 4, 64 * 64);
+
+	if (wireframe)
+	{
+		//save our incomming depthfunction
+		GLint incDepthFunc;
+		glGetIntegerv(GL_DEPTH_FUNC, &incDepthFunc);
+		//now draw the mesh
+		glDepthFunc(GL_EQUAL);
+		m_meshDisplay.Use();
+		glUniformMatrix4fv(m_meshDisplay("mv_matrix"), 1, GL_FALSE, &mv_matrix[0][0]);
+		glUniformMatrix4fv(m_meshDisplay("proj_matrix"), 1, GL_FALSE, &camera.GetProjectionMatrix()[0][0]);
+		glUniformMatrix4fv(m_meshDisplay("LOD_mvp_matrix"), 1, GL_FALSE, &LOD_mvp_matrix[0][0]);
+
+		glUniform1f(glGetUniformLocation(m_meshDisplay.getProgram(), "dmap_depth"), 3.0f);
+		glDrawArraysInstanced(GL_PATCHES, 0, 4, 64 * 64);
+		glDepthFunc(incDepthFunc); //default value
+	}
+	
+
 	glBindVertexArray(0);
 }
 

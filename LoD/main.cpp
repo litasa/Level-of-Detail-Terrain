@@ -82,21 +82,9 @@ int main(int argc, char ** argv[])
 			wireframe = !wireframe;
 			lock = !lock;
 		}
-		if (wireframe)
-		{
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		}
-		else
-		{
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		}
-		//transform.SetPos(glm::vec3(0, -5, 0));
-		terr.Draw(transform, camera, lock);
-		if (wireframe)
-		{
-			
-		}
-		//transform.SetScale(temp);
+	
+		terr.Draw(transform, camera, lock, wireframe);
+
 		display.Update();
 
 		counter += 0.001f;
