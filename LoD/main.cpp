@@ -79,8 +79,11 @@ int main(int argc, char ** argv[])
 		//transform.SetScale(glm::vec3(50));
 		if (currentKeyStates[SDL_SCANCODE_B])
 		{
-			wireframe = !wireframe;
 			lock = !lock;
+		}
+		if (currentKeyStates[SDL_SCANCODE_F])
+		{
+			wireframe = !wireframe;
 		}
 	
 		terr.Draw(transform, camera, lock, wireframe);
