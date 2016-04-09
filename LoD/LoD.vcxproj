@@ -87,7 +87,6 @@
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Skybox_Shader.cpp" />
     <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="Terrain2.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -104,7 +103,6 @@
     <ClInclude Include="Skybox_Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Terrain.h" />
-    <ClInclude Include="Terrain2.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>

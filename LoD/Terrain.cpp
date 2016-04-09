@@ -90,7 +90,7 @@ void Terrain::Draw(const Transform & transform, const Camera & camera, bool lock
 
 	glBindVertexArray(0);
 }
-
+/* NOT WORKING */
 float Terrain::GetHeightAt(glm::vec3& position)
 {
 	//convert middle of texture into world coordinates

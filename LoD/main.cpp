@@ -24,11 +24,9 @@ int main(int argc, char ** argv[])
 	Basic_Shader base_shader("./shaders/space");
 	Phong_Shader phong("./shaders/phong");
 	Texture texture("./textures/dirt.tga");
-	Camera camera(glm::vec3(0, 0, 0), 70.0f, display.GetAspectRation(), 0.01f, 1000.0f);
+	Camera camera(glm::vec3(0, 1, 0), 70.0f, display.GetAspectRation(), 0.01f, 1000.0f);
 
-	Terrain terr("./textures/terrain.jpg", "./textures/terrain.jpg");
-
-	float temp = terr.GetHeightAt(glm::vec3(-1));
+	Terrain terr("./textures/terrain2.jpg", "./textures/terrain2.jpg");
 	
 	Skybox sky;
 	sky.SkyboxInit("./textures/skybox/", "back.jpg", "front.jpg", "left.jpg", "right.jpg", "top.jpg", "bottom.jpg");
@@ -42,7 +40,7 @@ int main(int argc, char ** argv[])
 
 	std::cout << "init complete" << std::endl;
 
-	bool wireframe = false;
+	bool wireframe = true;
 	bool lock = false;
 
 	while (!display.IsClosed())
@@ -69,14 +67,6 @@ int main(int argc, char ** argv[])
 		
 		sky.Draw(transform, camera);
 
-		//phong.Use();
-		//phong.UpdateValues(transform, camera);
-		
-		//texture.Use();
-		//monkey.Draw();
-		//box.Draw();
-		//glm::vec3 temp = transform.GetScale();
-		//transform.SetScale(glm::vec3(50));
 		if (currentKeyStates[SDL_SCANCODE_B])
 		{
 			lock = !lock;
