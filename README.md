@@ -10,4 +10,4 @@ F enables or disables grid
 
 B lockes the frustum so you can easily inspect the lod at the end of the frustum
 
-Hold in the right button on the mouse to move the mouse around
+Hold in the right button on the mouse to move the Camera around
