@@ -69,14 +69,14 @@ void Terrain::Draw(const Transform & transform, const Camera & camera, bool lock
 
 	glUniform1f(glGetUniformLocation(m_shader.getProgram(), "dmap_depth"), 3.0f);
 	glDrawArraysInstanced(GL_PATCHES, 0, 4, 64 * 64);
-
+	m_shader.UnUse();
 	if (wireframe)
 	{
 		//save our incomming depthfunction
 		GLint incDepthFunc;
 		glGetIntegerv(GL_DEPTH_FUNC, &incDepthFunc);
 		//now draw the mesh
-		glDepthFunc(GL_EQUAL);
+		glDepthFunc(GL_LEQUAL);
 		m_meshDisplay.Use();
 		glUniformMatrix4fv(m_meshDisplay("mv_matrix"), 1, GL_FALSE, &mv_matrix[0][0]);
 		glUniformMatrix4fv(m_meshDisplay("proj_matrix"), 1, GL_FALSE, &camera.GetProjectionMatrix()[0][0]);
@@ -85,6 +85,7 @@ void Terrain::Draw(const Transform & transform, const Camera & camera, bool lock
 		glUniform1f(glGetUniformLocation(m_meshDisplay.getProgram(), "dmap_depth"), 3.0f);
 		glDrawArraysInstanced(GL_PATCHES, 0, 4, 64 * 64);
 		glDepthFunc(incDepthFunc); //default value
+		m_meshDisplay.UnUse();
 	}
 	
 

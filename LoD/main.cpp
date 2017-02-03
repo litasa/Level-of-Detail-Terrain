@@ -21,12 +21,10 @@ int main(int argc, char ** argv[])
 {
 
 	Display display(800, 600, "TSBK07 Level of Detail on Terrain");
-	Basic_Shader base_shader("./shaders/space");
-	Phong_Shader phong("./shaders/phong");
 	Texture texture("./textures/dirt.tga");
 	Camera camera(glm::vec3(0, 1, 0), 70.0f, display.GetAspectRation(), 0.01f, 1000.0f);
 
-	Terrain terr("./textures/terrain2.jpg", "./textures/terrain2.jpg");
+	Terrain terr("./textures/terrain.jpg", "./textures/terrain.jpg");
 	
 	Skybox sky;
 	sky.SkyboxInit("./textures/skybox/", "back.jpg", "front.jpg", "left.jpg", "right.jpg", "top.jpg", "bottom.jpg");
@@ -35,8 +33,6 @@ int main(int argc, char ** argv[])
 	Mouse mouse;
 
 	float counter = 0.0f;
-	Mesh monkey("./models/monkey3.obj");
-	Mesh box("./models/box.obj");
 
 	std::cout << "init complete" << std::endl;
 
@@ -59,22 +55,15 @@ int main(int argc, char ** argv[])
 			{
 				mouse.HandleEvent(e, camera);
 			}
+			if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP)
+			{
+				keyboard.RegisterEvents(e.key);
+			}
 		}
 
-		const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-
-		keyboard.HandleEvent(currentKeyStates, camera);
+		keyboard.ExecuteEvents(camera, lock, wireframe);
 		
 		sky.Draw(transform, camera);
-
-		if (currentKeyStates[SDL_SCANCODE_B])
-		{
-			lock = !lock;
-		}
-		if (currentKeyStates[SDL_SCANCODE_F])
-		{
-			wireframe = !wireframe;
-		}
 	
 		terr.Draw(transform, camera, lock, wireframe);
 

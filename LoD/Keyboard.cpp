@@ -2,43 +2,83 @@
 #include <iostream>
 
 
-void Keyboard::HandleEvent(const Uint8* keyState, Camera& camera)
+void Keyboard::RegisterEvents(SDL_KeyboardEvent& e)
 {
+	if (e.type == SDL_KEYDOWN)
+	{
+		auto it = std::find(keys_down.begin(), keys_down.end(), e.keysym.scancode);
+		if (it == keys_down.end())
+		{
+			keys_down.push_back(e.keysym.scancode);
+			m_key_pressed = true;
+		}
+	}
+	if (e.type == SDL_KEYUP)
+	{
+		auto it = std::find(keys_down.begin(), keys_down.end(), e.keysym.scancode);
+		if (it != keys_down.end())
+		{
+			keys_down.erase(it);
+			m_key_pressed = false;
+		}
+	}
+}
 
-	if (keyState[SDL_SCANCODE_W])
+void Keyboard::ExecuteEvents(Camera& camera, bool& lock_frustum, bool& wireframe)
+{
+	for (size_t i = 0; i < keys_down.size(); ++i)
 	{
-		W_KeyUsed(camera);
+		switch (keys_down[i])
+		{
+		case SDL_SCANCODE_W:
+		{
+			W_KeyUsed(camera);
+			break;
+		}
+		case SDL_SCANCODE_A:
+		{
+			A_KeyUsed(camera);
+			break;
+		}
+		case SDL_SCANCODE_S:
+		{
+			S_KeyUsed(camera);
+			break;
+		}
+		case SDL_SCANCODE_D:
+		{
+			D_KeyUsed(camera);
+			break;
+		}
+		case SDL_SCANCODE_L:
+		{
+			std::cout << "x: " << camera.GetUp().x << "y: " << camera.GetUp().y << "z: " << camera.GetUp().z << std::endl;
+			break;
+		}
+		case SDL_SCANCODE_Z:
+		{
+			Z_KeyUsed(camera);
+			break;
+		}
+		case SDL_SCANCODE_X:
+		{
+			X_KeyUsed(camera);
+			break;
+		}
+		case SDL_SCANCODE_B:
+		{
+			B_KeyUsed(lock_frustum);
+			break;
+		}
+		case SDL_SCANCODE_F:
+		{
+			F_KeyUsed(wireframe);
+			break;
+		}
+		default:
+			break;
+		}
 	}
-	if (keyState[SDL_SCANCODE_A])
-	{
-		A_KeyUsed(camera);
-	}
-	if (keyState[SDL_SCANCODE_S])
-	{
-		S_KeyUsed(camera);
-	}
-	if (keyState[SDL_SCANCODE_D])
-	{
-		D_KeyUsed(camera);
-	}
-	if (keyState[SDL_SCANCODE_L])
-	{
-		std::cout << "x: " << camera.GetUp().x << "y: " << camera.GetUp().y << "z: " << camera.GetUp().z << std::endl;
-	}
-	if (keyState[SDL_SCANCODE_P])
-	{
-		glm::vec3 pos = camera.GetPosition();
-		std::cout << "Camera position: " << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
-	}
-	if (keyState[SDL_SCANCODE_Z])
-	{
-		Z_KeyUsed(camera);
-	}
-	if (keyState[SDL_SCANCODE_X])
-	{
-		X_KeyUsed(camera);
-	}
-
 }
 
 void Keyboard::A_KeyUsed(Camera& camera)
@@ -71,6 +111,23 @@ void Keyboard::X_KeyUsed(Camera& camera)
 	camera.Move(camera.GetUp(), -m_speed);
 }
 
+void Keyboard::B_KeyUsed(bool& lock_frustum)
+{
+	if (m_key_pressed)
+	{
+		lock_frustum = (!lock_frustum);
+		std::cout << "frustum lock: " << lock_frustum << std::endl;
+	}
+}
+
+void Keyboard::F_KeyUsed(bool& wireframe)
+{
+	if (m_key_pressed)
+	{
+		wireframe = (!wireframe);
+		std::cout << "wireframe: " << wireframe << std::endl;
+	}
+}
 Keyboard::~Keyboard()
 {
 }
