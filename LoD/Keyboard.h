@@ -30,6 +30,5 @@ private:
 
 	float m_speed;
 	std::vector<SDL_Scancode> keys_down;
-	bool m_key_pressed = false;
 };
 #endif //KEYBOARD_H

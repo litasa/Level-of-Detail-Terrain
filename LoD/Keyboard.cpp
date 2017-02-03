@@ -10,7 +10,6 @@ void Keyboard::RegisterEvents(SDL_KeyboardEvent& e)
 		if (it == keys_down.end())
 		{
 			keys_down.push_back(e.keysym.scancode);
-			m_key_pressed = true;
 		}
 	}
 	if (e.type == SDL_KEYUP)
@@ -19,7 +18,6 @@ void Keyboard::RegisterEvents(SDL_KeyboardEvent& e)
 		if (it != keys_down.end())
 		{
 			keys_down.erase(it);
-			m_key_pressed = false;
 		}
 	}
 }
@@ -68,11 +66,13 @@ void Keyboard::ExecuteEvents(Camera& camera, bool& lock_frustum, bool& wireframe
 		case SDL_SCANCODE_B:
 		{
 			B_KeyUsed(lock_frustum);
+			keys_down.erase(keys_down.begin() + i);
 			break;
 		}
 		case SDL_SCANCODE_F:
 		{
 			F_KeyUsed(wireframe);
+			keys_down.erase(keys_down.begin() + i);
 			break;
 		}
 		default:
@@ -113,20 +113,14 @@ void Keyboard::X_KeyUsed(Camera& camera)
 
 void Keyboard::B_KeyUsed(bool& lock_frustum)
 {
-	if (m_key_pressed)
-	{
 		lock_frustum = (!lock_frustum);
 		std::cout << "frustum lock: " << lock_frustum << std::endl;
-	}
 }
 
 void Keyboard::F_KeyUsed(bool& wireframe)
 {
-	if (m_key_pressed)
-	{
 		wireframe = (!wireframe);
 		std::cout << "wireframe: " << wireframe << std::endl;
-	}
 }
 Keyboard::~Keyboard()
 {
