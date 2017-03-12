@@ -8,7 +8,6 @@ void Mouse::HandleEvent(SDL_Event& e, Camera& camera)
 		if (e.button.button == SDL_BUTTON_RIGHT)
 		{
 			SDL_SetRelativeMouseMode(SDL_TRUE);
-			std::cout << "Relative Mouse Mode On" << std::endl;
 		}
 	}
 
@@ -17,7 +16,6 @@ void Mouse::HandleEvent(SDL_Event& e, Camera& camera)
 		if (e.button.button == SDL_BUTTON_RIGHT)
 		{
 			SDL_SetRelativeMouseMode(SDL_FALSE);
-			std::cout << "Relative Mouse Mode Off" << std::endl;
 		}
 	}
 

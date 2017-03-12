@@ -32,12 +32,23 @@ int main(int argc, char ** argv[])
 	Keyboard keyboard;
 	Mouse mouse;
 
-	float counter = 0.0f;
+	std::cout << "======CONTROLS======\n";
+	std::cout << "Press ESC to quit the application\n";
 
-	std::cout << "init complete" << std::endl;
+	std::cout << "Hold right mouse button to look around\n";
 
+	std::cout << "Controls: \n";
+	std::cout << "W\tmove forwards\n";
+	std::cout << "A\tstrafe left\n";
+	std::cout << "S\tmove backwards\n";
+	std::cout << "D\tstrafe right\n\n";
+
+	std::cout << "F\tshow wireframes\n";
+	std::cout << "B\tLock viewfrustrum in place";
 	bool wireframe = true;
 	bool lock = false;
+
+
 
 	while (!display.IsClosed())
 	{
@@ -60,6 +71,10 @@ int main(int argc, char ** argv[])
 				keyboard.RegisterEvents(e.key);
 			}
 		}
+		if (keyboard.IsPressed(SDL_SCANCODE_ESCAPE))
+		{
+			display.Quit();
+		}
 
 		keyboard.ExecuteEvents(camera, lock, wireframe);
 		
@@ -68,8 +83,6 @@ int main(int argc, char ** argv[])
 		terr.Draw(transform, camera, lock, wireframe);
 
 		display.Update();
-
-		counter += 0.001f;
 	}
 	return 0;
 }

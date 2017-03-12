@@ -15,6 +15,8 @@ public:
 	void RegisterEvents(SDL_KeyboardEvent& e);
 	void ExecuteEvents(Camera& camera, bool& lock_frustum, bool& wireframe);
 
+	bool IsPressed(SDL_Scancode code);
+
 	~Keyboard();
 
 private:

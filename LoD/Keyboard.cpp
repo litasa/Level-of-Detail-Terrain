@@ -48,11 +48,6 @@ void Keyboard::ExecuteEvents(Camera& camera, bool& lock_frustum, bool& wireframe
 			D_KeyUsed(camera);
 			break;
 		}
-		case SDL_SCANCODE_L:
-		{
-			std::cout << "x: " << camera.GetUp().x << "y: " << camera.GetUp().y << "z: " << camera.GetUp().z << std::endl;
-			break;
-		}
 		case SDL_SCANCODE_Z:
 		{
 			Z_KeyUsed(camera);
@@ -79,6 +74,11 @@ void Keyboard::ExecuteEvents(Camera& camera, bool& lock_frustum, bool& wireframe
 			break;
 		}
 	}
+}
+
+bool Keyboard::IsPressed(SDL_Scancode code)
+{
+	return std::find(keys_down.begin(),keys_down.end(),code) != keys_down.end();
 }
 
 void Keyboard::A_KeyUsed(Camera& camera)
@@ -114,13 +114,11 @@ void Keyboard::X_KeyUsed(Camera& camera)
 void Keyboard::B_KeyUsed(bool& lock_frustum)
 {
 		lock_frustum = (!lock_frustum);
-		std::cout << "frustum lock: " << lock_frustum << std::endl;
 }
 
 void Keyboard::F_KeyUsed(bool& wireframe)
 {
 		wireframe = (!wireframe);
-		std::cout << "wireframe: " << wireframe << std::endl;
 }
 Keyboard::~Keyboard()
 {

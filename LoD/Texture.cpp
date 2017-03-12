@@ -118,15 +118,12 @@ bool CubemapTexture::Load()
 	//ignore first position, the directory
 	for (unsigned int i = 0; i < 6; i++)
 	{
-		std::cerr << "Trying to load " << m_fileNames[i] << " : ";
+		
 		unsigned char* imageData = stbi_load((m_fileNames[i]).c_str(), &width, &height, &numComponent, 4);
 		if (imageData == NULL)
 		{
-			std::cerr << "Failed" << std::endl;
-		}
-		else
-		{
-			std::cerr << "Sucessfull" << std::endl;
+			std::cerr << "Textureloading in CubemapTexture::Load\n";
+			std::cerr << "Trying to load " << m_fileNames[i] << " : Failed" << std::endl;
 		}
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
 

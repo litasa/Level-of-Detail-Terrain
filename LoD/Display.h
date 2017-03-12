@@ -23,6 +23,7 @@ public:
 
 	bool IsClosed() { return m_isClosed; }
 
+	void Quit() { m_isClosed = true; }
 
 private:
 	SDL_Window* m_window;
