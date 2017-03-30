@@ -2,12 +2,21 @@
 
 This is a project for the course TSBK07 at Linköping University. 
 
-NOTICE: INPUT IS NOT WORKING PROPERLY. It is hard to enable/disable things. press multiple times until it sticks
+# CONTROLS
 
-The controlls are: W, A ,S, D for movement
+Press ESC to quit the application
 
-F enables or disables grid
+Hold right mouse button to look around
 
-B lockes the frustum so you can easily inspect the lod at the end of the frustum
+W move forwards
 
-Hold in the right button on the mouse to move the Camera around
+A strafe left
+
+S move backwards
+
+D strafe right
+
+
+F show wireframes
+
+B Lock viewfrustrum in place
