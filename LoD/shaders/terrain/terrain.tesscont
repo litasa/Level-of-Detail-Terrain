@@ -27,20 +27,21 @@ void main(void)
 {
     if (gl_InvocationID == 0) //calls this 4 times. Only want to do these calculations once
     {
-		//convert to screen coordinates
+	//convert to screen coordinates
         vec4 p0 = LOD_mvp_matrix * gl_in[0].gl_Position;
         vec4 p1 = LOD_mvp_matrix * gl_in[1].gl_Position;
         vec4 p2 = LOD_mvp_matrix * gl_in[2].gl_Position;
         vec4 p3 = LOD_mvp_matrix * gl_in[3].gl_Position;
         //normalize
-		p0 /= p0.w;
+	p0 /= p0.w;
         p1 /= p1.w;
         p2 /= p2.w;
         p3 /= p3.w;
-        if (edgeInFrustrum(p0,p1) || edgeInFrustrum(p0,p2) || edgeInFrustrum(p1,p3) || edgeInFrustrum(p2,p3))
+        
+	if (edgeInFrustrum(p0,p1) || edgeInFrustrum(p0,p2) || edgeInFrustrum(p1,p3) || edgeInFrustrum(p2,p3))
          {
             //If any edge is in the frustrum take the length of that edge in view-coordinates and assign that as its tesselation lever
-			//multiply by 16 so we get a better tessilation (example 2 points colineaar to camera gives a small value, we wnat to enlarge it )
+	    //multiply by 16 so we get a better tessilation (example 2 points colineaar to camera gives a small value, we wnat to enlarge it )
             float l0 = length(p2.xy - p0.xy) * 16 + 1.0; //add one to make sure we get atleast one tesselation
             float l1 = length(p3.xy - p2.xy) * 16 + 1.0;
             float l2 = length(p3.xy - p1.xy) * 16 + 1.0;
@@ -54,15 +55,13 @@ void main(void)
 			
          }
          else
-         {
-		 
-			
-			 gl_TessLevelOuter[0] = 0.0;
+         {	
+	      gl_TessLevelOuter[0] = 0.0;
               gl_TessLevelOuter[1] = 0.0;
               gl_TessLevelOuter[2] = 0.0;
               gl_TessLevelOuter[3] = 0.0;
-			  gl_TessLevelInner[0] = 0.0;
-			  gl_TessLevelInner[1] = 0.0;
+	      gl_TessLevelInner[0] = 0.0;
+	      gl_TessLevelInner[1] = 0.0;
         }
     }
     gl_out[gl_InvocationID].gl_Position = gl_in[gl_InvocationID].gl_Position;
