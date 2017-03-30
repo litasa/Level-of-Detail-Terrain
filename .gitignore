@@ -228,3 +228,6 @@ _Pvt_Extensions
 # Jakob ADDED STUFF
 *.zip
 *.txt
+
+!/models/  
+!/models/*
